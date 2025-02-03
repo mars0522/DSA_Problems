@@ -1,4 +1,5 @@
 #include <iostream>
+#include<vector>
 using namespace std;
 
 void PrintIncreasingOrder(int n) {
@@ -67,22 +68,48 @@ int MaxInArray(int *arr, int n, int index) {
     int max = MaxInArray(arr,n,index+1);
     return max > arr[index]? max:arr[index];
 }
+
+int FirstIndex(int *arr, int n, int data, int index) {
+    if (index >=n) return -1;
+    if (arr[index] == data) return index;
+    return FirstIndex(arr,n,data,index+1);
+}
+int LastIndex(int *arr, int n, int data, int index) {
+    if (index < 0 ) return -1;
+    if (arr[index] == data) return index;
+    return LastIndex(arr,n,data,index-1);
+}
+void AllIndices(int* arr, int n , int index, int data, vector<int>& indices) {
+    if (index >= n ) return ;
+    if (arr[index] == data) {
+        indices.push_back(index);
+    }
+    AllIndices(arr,n,index+1,data,indices);
+
+}
 int main() {
    #ifndef ONLINE_JUDGE
 	freopen("../input.txt","r",stdin);
 	freopen("../output.txt","w",stdout);
 	#endif
+    vector<int> indices;
     // PrintIncreasingOrder(5);
     // PrintDecreasingIncreasingOrder(5);
     // cout<<Factorial(5)<<endl;
     // cout<<Power(2,10)<<endl;
     // cout<<LogPower(2,12)<<endl;
     // Towerofhanoi(5,'A','B','C');
-   int arr[] = {82,20,34,14,76,22};
+   int arr[] = {2,3,6,9,3,3,2,3,6,4};
    int n = sizeof(arr)/sizeof(arr[0]);
     // DisplayArray(arr,n,0);
     // DisplayArrayInReverse(arr,n,0);
-    cout<<MaxInArray(arr,n,0);
+    // cout<<MaxInArray(arr,n,0);
+    // cout<<FirstIndex(arr,n,76,0);
+    // cout<<LastIndex(arr,n,1,n-1);
+    AllIndices(arr,n,0,3,indices);
+    for(auto x: indices){
+        cout<<x<<" ";
+    }
     return 0;  
 }
 
