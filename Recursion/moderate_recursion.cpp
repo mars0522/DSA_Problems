@@ -44,6 +44,24 @@ void GetStairsPath(int n, vector<vector<int>> & res, vector<int> path) {
     path.push_back(3);
     GetStairsPath(n-3,res,path);
 }
+
+void GetMaizePath(int sr, int sc, int dr, int dc, string path, vector<string>& res) {
+    if (sr < 0 || sr > dr) return ;
+    if (sc < 0 || sc > dc) return ;
+
+    if (sr == dr && sc == dc) {
+        res.push_back(path);
+        return;
+    }
+
+    if (sr < dr) {
+    GetMaizePath(sr+1,sc,dr,dc,path + "D",res);
+    }
+    if (sc < dc){
+    GetMaizePath(sr,sc+1,dr,dc,path + "R",res);
+    } 
+}
+
 int main() {
     #ifndef ONLINE_JUDGE
 	freopen("../input.txt","r",stdin);
@@ -72,14 +90,28 @@ int main() {
     //     cout<<x<<endl;
     // }
 
-    int n;
-    cin>>n;
-    vector<vector<int>> res;
-    vector<int> path;
-    GetStairsPath(n,res,path);
-    for(auto arr: res) {
-        for(auto e:arr) {
-            cout<<e<<" ";
+    // int n;
+    // cin>>n;
+    // vector<vector<int>> res;
+    // vector<int> path;
+    // GetStairsPath(n,res,path);
+    // for(auto arr: res) {
+    //     for(auto e:arr) {
+    //         cout<<e<<" ";
+    //     }
+    //     cout<<endl;
+    // }
+
+    vector<string> output;
+    string str = "";
+    int sr, sc, dr, dc;
+    cin>>sr>>sc>>dr>>dc;
+    GetMaizePath(sr,sc,dr,dc,str,output);
+
+    for(auto path : output) {
+        for(auto x: path)
+        {
+            cout<<x<<" ";
         }
         cout<<endl;
     }
