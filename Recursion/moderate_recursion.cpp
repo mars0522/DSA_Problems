@@ -62,6 +62,26 @@ void GetMaizePath(int sr, int sc, int dr, int dc, string path, vector<string>& r
     } 
 }
 
+void GetMaizePathWithJumps(int sr, int sc, int dr, int dc , string path, vector<string> & res) {
+    if (sr > dr || sc > dc) return ;
+    if (sr == dr && sc == dc) {
+        res.push_back(path);
+        return;
+    }
+    for(int i=1; i<=3;i++){
+        if (sr + i <= dr) {
+            GetMaizePathWithJumps(sr+i,sc,dr,dc,path + "V" + to_string(i),res);
+        }
+        if (sc + i <= dc ) {
+            GetMaizePathWithJumps(sr,sc+i,dr,dc,path + "H" + to_string(i),res);
+        }
+        if (sr + i <= dr && sc + i <= dc) {
+            GetMaizePathWithJumps(sr+i,sc+i,dr,dc,path + "D" + to_string(i),res);
+        }
+    }
+
+}
+
 int main() {
     #ifndef ONLINE_JUDGE
 	freopen("../input.txt","r",stdin);
@@ -106,7 +126,8 @@ int main() {
     string str = "";
     int sr, sc, dr, dc;
     cin>>sr>>sc>>dr>>dc;
-    GetMaizePath(sr,sc,dr,dc,str,output);
+    // GetMaizePath(sr,sc,dr,dc,str,output);
+    GetMaizePathWithJumps(sr,sc,dr,dc,str,output);
 
     for(auto path : output) {
         for(auto x: path)
