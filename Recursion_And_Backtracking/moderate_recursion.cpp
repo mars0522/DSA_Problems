@@ -103,6 +103,23 @@ void PrintPermutations(string& input , int index, vector<string> & output){
 
 }
 
+void PrintEncoding(string& input,string str, unordered_map<string,char> & mp, int index, vector<string>& output ){
+    if (index >= input.size()) {
+       output.push_back(str);
+       return ;
+    }
+    string lookup(1,input[index]);  
+    str += mp[lookup];
+    PrintEncoding(input,str,mp,index+1,output);
+    if (index <= input.size()-2){
+        lookup = input.substr(index,2);
+        if (stoi(lookup) >= 27) return ;
+        str.pop_back();
+        str += mp[lookup];
+        PrintEncoding(input,str,mp,index+2,output);
+    }
+}
+
 int main() {
     #ifndef ONLINE_JUDGE
 	freopen("../input.txt","r",stdin);
@@ -157,10 +174,38 @@ int main() {
     //     }
     //     cout<<endl;
     // }
+    unordered_map<string,char> mp;
+    mp["1"] = 'a';
+    mp["2"] = 'b';
+    mp["3"] = 'c';
+    mp["4"] = 'd';
+    mp["5"] = 'e';
+    mp["6"] = 'f';
+    mp["7"] = 'g';
+    mp["8"] = 'h';
+    mp["9"] = 'i';
+    mp["10"] = 'j';
+    mp["11"] = 'k';
+    mp["12"] = 'l';
+    mp["13"] ='m';
+    mp["14"] = 'n';
+    mp["15"] = 'o';
+    mp["16"] = 'p';
+    mp["17"] = 'q';
+    mp["18"] = 'r';
+    mp["19"] ='s';
+    mp["20"] = 't';
+    mp["21"] = 'u';
+    mp["22"] = 'v';
+    mp["23"] = 'w';
+    mp["24"] = 'x';
+    mp["25"] = 'y';
+    mp["26"] = 'z';
     string input;
     cin>>input;
     vector<string> output;
-    PrintPermutations(input,0,output);
+    // PrintPermutations(input,0,output);
+    PrintEncoding(input,"",mp,0,output);
     for(auto x: output) {
         cout<<x<<endl;
     }
