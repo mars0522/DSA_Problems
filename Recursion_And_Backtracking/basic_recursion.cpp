@@ -64,7 +64,7 @@ void DisplayArrayInReverse(int *arr, int n ,int index) {
 }
 
 int MaxInArray(int *arr, int n, int index) {
-    if (index >= n) return INT16_MIN;
+    if (index >= n) return -1;
     int max = MaxInArray(arr,n,index+1);
     return max > arr[index]? max:arr[index];
 }
